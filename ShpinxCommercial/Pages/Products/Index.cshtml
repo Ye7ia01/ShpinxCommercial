@@ -1,0 +1,54 @@
+﻿@page
+@model ShpinxCommercial.Pages.Products.IndexModel
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-page="Create" class="btn btn-primary">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Product[0].ProductName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Product[0].ProductDescription)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Product[0].ProductPrice)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Product[0].Client)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model.Product) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.ProductName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ProductDescription)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ProductPrice)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Client.ClientEmail)
+            </td>
+            <td>
+                <a asp-page="./Edit" asp-route-id="@item.ProductId" class="btn btn-primary">Edit</a> 
+                <a asp-page="./Details" asp-route-id="@item.ProductId" class="btn btn-primary">Details</a> 
+                <a asp-page="./Delete" asp-route-id="@item.ProductId" class="btn btn-primary">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
