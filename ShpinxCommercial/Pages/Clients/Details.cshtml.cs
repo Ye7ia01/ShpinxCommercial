@@ -21,13 +21,14 @@ namespace ShpinxCommercial.Pages.Clients
 
         public Client Client { get; set; } = default!;
 
+        // method executed on GEt requests to the endpoint
         public async Task<IActionResult> OnGetAsync(int? id)
         {
             if (id == null)
             {
                 return NotFound();
             }
-
+            // LINQ to returns client object matches the id given in the query string
             var client = await _context.Clients.FirstOrDefaultAsync(m => m.ClientId == id);
             if (client == null)
             {

@@ -14,14 +14,17 @@ namespace ShpinxCommercial.Pages.Products
     {
         private readonly ShpinxCommercial.Data.ShpinxCommercialDbContext _context;
 
+        // inject Db context
         public DeleteModel(ShpinxCommercial.Data.ShpinxCommercialDbContext context)
         {
             _context = context;
         }
 
+        // bind property to pass model to the razor papge
         [BindProperty]
         public Product Product { get; set; } = default!;
 
+        // method executed on GET requests
         public async Task<IActionResult> OnGetAsync(int? id)
         {
             if (id == null)
@@ -29,6 +32,7 @@ namespace ShpinxCommercial.Pages.Products
                 return NotFound();
             }
 
+            // LINQ to return Product Object matches ID in query string
             var product = await _context.Products.FirstOrDefaultAsync(m => m.ProductId == id);
 
             if (product == null)
@@ -42,6 +46,7 @@ namespace ShpinxCommercial.Pages.Products
             return Page();
         }
 
+        // method executed on POST requests to the endpoint
         public async Task<IActionResult> OnPostAsync(int? id)
         {
             if (id == null)

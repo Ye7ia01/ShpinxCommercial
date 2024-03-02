@@ -14,6 +14,7 @@ namespace ShpinxCommercial.Pages.Products
     {
         private readonly ShpinxCommercial.Data.ShpinxCommercialDbContext _context;
 
+        // dependency injections
         public IndexModel(ShpinxCommercial.Data.ShpinxCommercialDbContext context)
         {
             _context = context;
@@ -21,8 +22,10 @@ namespace ShpinxCommercial.Pages.Products
 
         public IList<Product> Product { get;set; } = default!;
 
+        // method executed on GET requests to the endpoint
         public async Task OnGetAsync()
         {
+            // LINQ to get List of all products & "Include" is used to get the correspoinding Client object
             Product = await _context.Products
                 .Include(p => p.Client).ToListAsync();
         }

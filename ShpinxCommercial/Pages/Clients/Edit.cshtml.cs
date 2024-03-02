@@ -20,9 +20,11 @@ namespace ShpinxCommercial.Pages.Clients
             _context = context;
         }
 
+        // bind property to pass model to the razor page
         [BindProperty]
         public Client Client { get; set; } = default!;
 
+        // method executed on GET requests to the endpoint
         public async Task<IActionResult> OnGetAsync(int? id)
         {
             if (id == null)
@@ -30,6 +32,7 @@ namespace ShpinxCommercial.Pages.Clients
                 return NotFound();
             }
 
+            // return client object matches the id given in the query string
             var client =  await _context.Clients.FirstOrDefaultAsync(m => m.ClientId == id);
             if (client == null)
             {
@@ -39,15 +42,15 @@ namespace ShpinxCommercial.Pages.Clients
             return Page();
         }
 
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see https://aka.ms/RazorPagesCRUD.
+        // method executed on POST requests to this endpoint
         public async Task<IActionResult> OnPostAsync()
         {
+            // model validation
             if (!ModelState.IsValid)
             {
                 return Page();
             }
-
+            // could be implemented by getting the object then using the "Update() method also"
             _context.Attach(Client).State = EntityState.Modified;
 
             try
